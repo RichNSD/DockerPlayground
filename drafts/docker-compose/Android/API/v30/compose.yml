@@ -1,4 +1,22 @@
 services:
+  ubuntu:
+    image: "ubuntu:latest"
+    container_name: "Ubuntu Host"
+    hostname: "lin-server"
+    privileged: true
+    build:
+      context: "/ubuntu/.devcontainer"
+      dockerfile: "ubuntu.dockerfile"
+    networks:
+      - admin
+      - host
+    ports:
+      - 22
+      - 80
+      - 443
+    volumes:
+      - /source:/target
+
   api30:
     image: "openjdk:11-jdk-slim"
     container_name: "Android API v30"
@@ -31,9 +49,11 @@ services:
     image: "tailscail:latest"
     container_name: "Tailscale"
     hostname: "Tailscale-VPN"
+    privileged: true
     build:
       context: "/vpn/.devcontainer"
       dockerfile: "tailscale.dockerfile"
     cap_add:
-      - ""
+      - net_admin
+      - sys_module
     
