@@ -1,0 +1,39 @@
+services:
+  api30:
+    image: "openjdk:11-jdk-slim"
+    container_name: "Android API v30"
+    hostname: "Android-v30"
+    build:
+      context: "/.devcontainer"
+      dockerfile: "api30.dockerfile"
+    networks:
+      - admin
+      - host
+    ports:
+      - 22
+      - 80
+      - 443
+    volumes:
+      - type: bind
+        source: "D:\\Containers\\Android"
+        target: "/vol/dev"
+        read_only: false
+      - type: bind
+        source: "D:\\"
+        target: "/vol/admin"
+        read_only: false
+      - type: bind
+        source: "D:\\"
+        target: "/vol/storage"
+        read_only: false
+  
+  tailscail:
+    image: "tailscail:latest"
+    container_name: "Tailscale"
+    hostname: "Tailscale-VPN"
+    build:
+      context: "/vpn/.devcontainer"
+      dockerfile: "tailscale.dockerfile"
+    cap_add:
+      - ""
+    
