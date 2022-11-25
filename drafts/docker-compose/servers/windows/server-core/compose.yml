@@ -11,17 +11,18 @@ services:
       - admin
       - dev
       - host
+      - backend
     ports:
       - 22
       - 80
       - 443
     volumes:
       - type: bind
-        source: "D:\\Containers"
+        source: "Z:\\Docker\\DevContainers\\WinDev\\Windows-Server\\WinServ-01\\volumes\\dev"
         target: "D:\\"
         read_only: false
       - type: bind
-        source: "D:\\Containers"
+        source: "Z:\\Docker\\DevContainers\\WinDev\\Windows-Server\\WinServ-01\\volumes\\storage"
         target: "S:\\"
         read_only: false
 
@@ -41,6 +42,7 @@ services:
       - admin
       - dev
       - host
+      - backend
     ports:
       - 22
       - 80
@@ -48,4 +50,27 @@ services:
     volumes:
       - ""
     
-  
+  database:
+    image: "sql"
+    container_name: "WinSQL-01"
+    hostname: "win-database"
+    privileged: true
+    build:
+      context: ".\\database\\.devcontainer"
+      dockerfile: "win-db.dockerfile"
+    networks:
+      - admin
+      - backend
+    ports:
+      - 22
+    volumes:
+      - type: bind
+        source: "Z:\\Docker\\DevContainers\\WinDev\\Windows-Server\\WinSQL-01\\volumes\\data"
+        target: "D:\\"
+        read_only: false
+
+networks:
+  admin: {}
+  dev: {}
+  host: {}
+  backend: {}
