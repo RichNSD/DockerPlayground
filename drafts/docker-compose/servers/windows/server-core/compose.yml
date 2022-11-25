@@ -1,0 +1,51 @@
+services:
+  server:
+    image: ""
+    container_name: "WinServ-01"
+    hostname: "WinServ-01"
+    privileged: true
+    build:
+      context: ".\\server\\.devcontainer"
+      dockerfile: "servercore.dockerfile"
+    networks:
+      - admin
+      - dev
+      - host
+    ports:
+      - 22
+      - 80
+      - 443
+    volumes:
+      - type: bind
+        source: "D:\\Containers"
+        target: "D:\\"
+        read_only: false
+      - type: bind
+        source: "D:\\Containers"
+        target: "S:\\"
+        read_only: false
+
+  tailscail:
+    image: "tailscail"
+    container_name: "Tailscale"
+    hostname: "tailscale-vpn"
+    privileged: true
+    build:
+      context: ".\\"
+      dockerfile: "tailscale.dockerfile"
+    network_mode: host
+    cap_add:
+      - net_admin
+      - sys_module
+    networks:
+      - admin
+      - dev
+      - host
+    ports:
+      - 22
+      - 80
+      - 443
+    volumes:
+      - ""
+    
+  
