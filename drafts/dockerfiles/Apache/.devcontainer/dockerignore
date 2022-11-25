@@ -1,0 +1,19 @@
+#Temporary Files & Folders
+/*tmp*/*
+/*temp*/*
+/*cache*/*
+*.tmp*
+*.temp*
+*.*tmp*
+*.*temp*
+
+
+#Documents
+/docs/*
+*.md
+*.mdx
+*.doc*
+*.rtf*
+*.xls*
+!README.md
+!*README.*

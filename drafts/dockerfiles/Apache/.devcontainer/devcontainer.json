@@ -1,0 +1,21 @@
+{
+	"image": "",
+	"features": {},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"aaron-bond.better-comments",
+				"JannisX11.batch-rename-extension"
+			]
+		}
+	},
+	"forwardPorts": [
+		6037,
+		7854
+	],
+	"postCreateCommand": [
+		"bash /scripts/post-build.sh",
+		"bash /scripts/install-pwsh.sh"
+	],
+	"postStartCommand": ""
+}
