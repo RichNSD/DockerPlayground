@@ -8,15 +8,17 @@ $WarningPreference="Continue"
 $DebugPreference="Continue"
 
 
-$dirParams = @{
-	ItemType =	Directory
-	Path =		"C:\"
-	Verbose =	$true
-	PassThru =	$true
-	Force =		$true
-}
 
-New-Item @dirParams -Name ".admin"
+
+
+
+<# @{
+	ItemType = "Directory"
+	Path = "C:\"
+	PassThru = $true
+	Verbose = $true
+	Force = $true
+} #>
 
 
 
@@ -34,14 +36,41 @@ function Set-BuildDirs {
 	)
 	
 	begin {
-		#begin block
+		$admin = @{
+			AdminDir = 		".\.admin"
+			AdminDirs = @{
+				Admin =		"$AdminDir"
+				Scripts = 	"$AdminDir\scripts"
+				Logs = 		"$AdminDir\logs"
+			}
+			AdminScripts = @{
+				Script01 = "$AdminScripts\script01.ps1"
+			}
+		}
 	}
 	
 	process {
-		#main process block
+		foreach ($buildItem in $admin['AdminDirs']) {
+			New-Item -ItemType Directory -Verbose -Force -Path "C:\" -Value "$buildItem"
+		}
 	}
 	
 	end {
 		#end block
 	}
+
+
+<#
+.SYNOPSIS
+	A short one-line action-based description, e.g. 'Tests if a function is valid'
+.DESCRIPTION
+	A longer description of the function, its purpose, common use cases, etc.
+.NOTES
+	Information or caveats about the function e.g. 'This function is not supported in Linux'
+.LINK
+	Specify a URI to a help page, this will show when Get-Help -Online is used.
+.EXAMPLE
+	Test-MyTestFunction -Verbose
+	Explanation of the function or its result. You can include multiple examples with additional .EXAMPLE lines
+#>
 }
